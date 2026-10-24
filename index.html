@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Qué tanto me conoces, Kate?</title>
+<meta name="description" content="Un pequeño juego sobre nuestra historia, hecho con cariño para Kate.">
+<meta name="theme-color" content="#fff6f8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="app-shell">
+<header class="page-header">
+<p class="eyebrow"><span class="brand-mark" aria-hidden="true">♥</span> Un detalle para Kate</p>
+</header>
+<p class="counter" id="counter" role="status" aria-live="polite"></p>
+<section class="panel" id="panel" aria-label="Juego"></section>
+<footer class="page-footer">Hecho con cariño, para guardar y volver a jugar.</footer>
+</main>
+<script>
+// ===== EDITA AQUÍ: preguntas y carta =====
+var START = new Date(2026,9,29);   // 29 de octubre 2026 (primer mes)
+var MET = new Date(2026,6,20);     // 20 de julio 2026 (se conocieron en persona)
+var QS = [
+ {q:"¿Qué día nos conocimos en persona por primera vez?",o:[
+  {t:"20 de julio",ok:1,c:"Exacto. Ese día hablamos tanto que el tiempo se nos fue volando."},
+  {t:"29 de octubre",c:"Ese día me llamaste por teléfono, casi, pero no."},
+  {t:"Nunca, soy un holograma",c:"Ojalá no. Los hologramas no comen cazuela."}]},
+ {q:"¿Cómo empezó todo lo nuestro?",o:[
+  {t:"Una amistad a distancia que fue creciendo",ok:1,c:"Así fue. Sin darme cuenta, me tenías más cerca de lo que pensaba."},
+  {t:"Un matrimonio arreglado por nuestras familias",c:"Muy intenso para un primer mes. Bajemos el ritmo."},
+  {t:"Una apuesta que perdí",c:"La mejor apuesta perdida de mi vida, pero no fue esa."}]},
+ {q:"¿Qué hacíamos a distancia?",o:[
+  {t:"Ver series, animes y películas",ok:1,c:"Sí. Y todavía nos quedan muchas por ver."},
+  {t:"Entrenar para una maratón",c:"Yo corriendo, tú hablando. Ya sé quién ganaría."},
+  {t:"Cultivar papas por videollamada",c:"Habría salido una papa gigante, pero no."}]},
+ {q:"¿Qué pasó el 29 de octubre?",o:[
+  {t:"Me llamaste por teléfono y todo cambió",ok:1,c:"Esa llamada. Todavía me acuerdo."},
+  {t:"Me llegó una carta por paloma mensajera",c:"La paloma se perdió, por suerte llamaste tú."},
+  {t:"Se cayó internet en todo Chile",c:"Menos mal que el teléfono sí funcionó."}]},
+ {q:"¿Quién habla más cuando conversamos?",o:[
+  {t:"Kate",ok:1,c:"Kate abre el tema, y entre una cosa y otra pasan dos horas. Me encanta."},
+  {t:"Katie",ok:1,c:"Katie tiene tres cosas más que contar, y todas son entretenidas."},
+  {t:"Rose",ok:1,c:"Rose dice “una cosa más” y son las 2 de la mañana. Todas respuestas correctas."},
+  {t:"Christopher, obvio",ok:1,c:"Buen intento. Pero me gusta escucharte, así que lo dejamos pasar."}]},
+ {q:"¿Cuál es tu comida favorita?",o:[
+  {t:"La cazuela",ok:1,c:"La cazuela nunca falla. Algún día te la cocino yo, y no prometo que quede igual."},
+  {t:"Sushi con piña",c:"Que esto quede entre nosotros."},
+  {t:"Puro aire, vivo de amor",c:"Qué lindo, pero eso no llena. Mejor la cazuela."}]},
+ {q:"¿Qué te gusta hacer con las manos?",o:[
+  {t:"Tejer",ok:1,c:"Tejer. Algún día me haces algo, ¿no?"},
+  {t:"Esculpir en hielo",c:"Con este calor se derretiría todo."},
+  {t:"Domar leones",c:"Tú sola con tu intensidad ya domas a cualquiera."}]},
+ {q:"¿Cómo me dices a veces?",o:[
+  {t:"Tomatito",ok:1,c:"Tomatito. Me lo dices y se me olvida todo lo demás."},
+  {t:"Zanahoria",c:"Eso es otra verdura, y otro nivel de confianza."},
+  {t:"Señor Christopher",c:"Muy formal. Prefiero lo otro."}]},
+ {q:"¿Por qué nuestra canción es Boulevard of Broken Dreams?",o:[
+  {t:"Porque te obsesionaste con la película española Boulevard",ok:1,c:"Exacto. Nunca la voy a escuchar sin acordarme de eso."},
+  {t:"Porque me la dedicó un mariachi",c:"Habría sido memorable, pero no."},
+  {t:"Porque era la única que nos sabíamos en el karaoke",c:"Cantamos pésimo, pero esa no fue la razón."}]},
+ {q:"¿Quién bebe más de los dos?",o:[
+  {t:"Christopher, sin discusión",ok:1,c:"La competencia que nunca declaramos, y que siempre gano yo."},
+  {t:"Kate, por goleada",c:"Qué generosa eres. Pero no."},
+  {t:"Empatados",c:"Eso lo dices para que no se enoje nadie."}]},
+ {q:"Aparte de tejer, ¿qué más te gusta?",o:[
+  {t:"Maquillarme",ok:1,c:"Y siempre te queda lindo."},
+  {t:"Pescar a las 5 de la mañana",c:"Tú a las 5 de la mañana, jamás."},
+  {t:"Reparar autos",c:"No tengo auto, así que nada que reparar."}]},
+ {q:"¿Quién siempre me apoya, se preocupa por mí y me da mi espacio?",o:[
+  {t:"Tú",ok:1,c:"Tú. Y nunca te lo agradezco lo suficiente."},
+  {t:"El gato del vecino",c:"Es amable, pero no tanto."},
+  {t:"Mi profesor guía",c:"Ojalá, pero no tanto."}]}
+];
+var LETTER = "Kate:\n\nTodo esto empezó mucho antes del 29 de octubre. Empezó con series, animes y películas a distancia, con conversaciones que se alargaban más de la cuenta y con una amistad que fue creciendo sin que yo me diera cuenta de cuánto.\n\nEl 20 de julio nos vimos por primera vez en persona y hablamos tanto que el tiempo se pasó volando. Y el 29 de octubre me llamaste por teléfono y todo cambió.\n\nAunque a veces no digas las cosas con palabras, lo siento en cómo me apoyas, te preocupas por mí y me das mi espacio. Gracias por eso, por hablar tanto, por hacerme reír y por ser tan tú. Un mes ya, y me quedan muchas ganas de más: más series, más cazuela y más conversaciones que no terminan.\n\nFeliz primer mes, Rose.\n\nChristopher";
+// ===== fin de la zona editable =====
+
+var p = document.getElementById('panel'), i = 0, score = 0;
+function days(a,b){return Math.round((b-a)/86400000)}
+var t = new Date(), today = new Date(t.getFullYear(),t.getMonth(),t.getDate());
+var cEl = document.getElementById('counter');
+if(today<START){cEl.textContent="Faltan "+days(today,START)+" días para nuestro primer mes"}
+else{cEl.textContent="Llevamos "+days(START,today)+" días juntos"}
+
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function coverImage(){
+ var image=el('img','cover-image');
+ image.src='portada-gato.png';
+ image.alt='Un gato gris sentado y mirando al frente.';
+ return image;
+}
+function menuGif(){
+ var image=el('img','menu-gif');
+ image.src='menu-gato.gif';
+ image.alt='Gatito acercándose a la cámara.';
+ return image;
+}
+function intro(){
+ p.replaceChildren();
+ p.appendChild(menuGif());
+ p.appendChild(el('h1',null,"¿Qué tanto me conoces, Kate?"));
+ p.appendChild(el('p',null,"Unas preguntas sobre nosotros. Mueve la rosa suavemente con las flechas, también en diagonal, y pulsa Enter; en móvil, arrástrala hasta una respuesta."));
+ var b=el('button','main',"Empezar");b.onclick=ask;p.appendChild(b);
+}
+function ask(){
+ var Q=QS[i];p.replaceChildren();
+ p.appendChild(el('p','prog',"Pregunta "+(i+1)+" de "+QS.length));
+ p.appendChild(el('h2',null,Q.q));
+ var box=el('div','box');p.appendChild(box);
+ box.appendChild(el('div','tray',"Mueve la rosa suavemente con las flechas (combínalas para ir en diagonal) y pulsa Enter, o arrástrala sobre una respuesta"));
+ var m=el('div','marker',"🌹");m.tabIndex=0;m.setAttribute('role','button');m.setAttribute('aria-label','Rosa: muévela con las flechas o arrástrala hasta una respuesta');document.body.appendChild(m);
+ var bs=[],done=false,drag=false,x=0,y=0,keys={},frame=0,lastFrame=0;
+ function setPosition(left,top){
+  x=Math.max(0,Math.min(window.innerWidth-38,left));
+  y=Math.max(0,Math.min(window.innerHeight-38,top));
+  m.style.left=x+'px';m.style.top=y+'px';
+ }
+ function hitAnswer(px,py){
+  for(var k=0;k<bs.length;k++){
+   var r=bs[k].getBoundingClientRect();
+   if(px>=r.left&&px<=r.right&&py>=r.top&&py<=r.bottom)return k;
+  }
+  return -1;
+ }
+ function home(){var r=box.getBoundingClientRect();setPosition(r.left+12,r.top+12)}
+ function stopMovement(){
+  keys={};lastFrame=0;
+  if(frame){cancelAnimationFrame(frame);frame=0}
+ }
+ function animateMovement(time){
+  frame=0;
+  if(done||drag)return;
+  if(!lastFrame)lastFrame=time;
+  var elapsed=Math.min((time-lastFrame)/1000,0.05);
+  lastFrame=time;
+  var dx=(keys.ArrowRight?1:0)-(keys.ArrowLeft?1:0);
+  var dy=(keys.ArrowDown?1:0)-(keys.ArrowUp?1:0);
+  if(dx||dy){
+   var length=Math.sqrt(dx*dx+dy*dy);
+   var distance=260*elapsed/length;
+   setPosition(x+dx*distance,y+dy*distance);
+   frame=requestAnimationFrame(animateMovement);
+  }else lastFrame=0;
+ }
+ function startMovement(){
+  if(!frame)frame=requestAnimationFrame(animateMovement);
+ }
+ function onKeyDown(e){
+  if(done)return;
+  if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key==='ArrowUp'||e.key==='ArrowLeft'){
+   e.preventDefault();keys[e.key]=true;startMovement();
+  }else if(e.key==='Enter'||e.key===' '){
+   var hit=hitAnswer(x+19,y+19);
+   if(hit>=0){e.preventDefault();choose(hit)}
+  }
+ }
+ function onKeyUp(e){
+  if(Object.prototype.hasOwnProperty.call(keys,e.key)){
+   keys[e.key]=false;
+   if(!keys.ArrowDown&&!keys.ArrowRight&&!keys.ArrowUp&&!keys.ArrowLeft)stopMovement();
+  }
+ }
+ function onWindowBlur(){stopMovement()}
+ function choose(k){
+  if(done)return;done=true;stopMovement();m.remove();
+  window.removeEventListener('keydown',onKeyDown);
+  window.removeEventListener('keyup',onKeyUp);
+  window.removeEventListener('blur',onWindowBlur);
+  var o=Q.o[k];bs.forEach(function(x){x.disabled=true});
+  bs[k].classList.add(o.ok?'good':'bad');if(o.ok)score++;
+  p.appendChild(el('div','msg',o.c));
+  var n=el('button','main',i<QS.length-1?"Siguiente":"Ver la sorpresa");
+  n.onclick=function(){i++;i<QS.length?ask():envelope()};
+  p.appendChild(n);n.focus();
+ }
+ Q.o.forEach(function(o,k){var b=el('button','opt',o.t);b.onclick=function(){choose(k)};box.appendChild(b);bs.push(b)});
+ home();
+ function move(e){setPosition(e.clientX-19,e.clientY-19)}
+ m.onpointerdown=function(e){if(done)return;e.preventDefault();m.setPointerCapture(e.pointerId);drag=true;m.classList.add('drag');move(e)};
+ m.onpointermove=function(e){if(drag)move(e)};
+ m.onpointerup=function(e){
+  if(!drag)return;drag=false;m.classList.remove('drag');
+  var hit=hitAnswer(e.clientX,e.clientY);
+  if(hit>=0)choose(hit);
+ };
+ m.onpointercancel=function(){drag=false;m.classList.remove('drag')};
+ window.addEventListener('keydown',onKeyDown);
+ window.addEventListener('keyup',onKeyUp);
+ window.addEventListener('blur',onWindowBlur);
+ m.focus({preventScroll:true});
+}
+function envelope(){
+ p.replaceChildren();
+ p.appendChild(el('h2',null,"Terminaste: "+score+" de "+QS.length));
+ p.appendChild(el('p',null,"Y la verdad es que da lo mismo, porque hay una carta esperándote."));
+ var b=el('button','main',"Abrir la carta");b.onclick=letter;p.appendChild(b);
+}
+function letter(){
+ p.replaceChildren();
+ p.appendChild(el('h2',null,"Feliz primer mes"));
+ p.appendChild(el('div','letter',LETTER));
+ for(var k=0;k<14;k++){(function(k){setTimeout(function(){
+  var h=el('div','heart',k%2?"💗":"🌸");h.style.left=(Math.random()*92)+"vw";
+  document.body.appendChild(h);setTimeout(function(){h.remove()},5200)},k*220)})(k)}
+}
+function pad(n){return (n<10?'0':'')+n}
+function lock(){
+ cEl.classList.add('hide');p.replaceChildren();
+ p.appendChild(coverImage());
+ p.appendChild(el('div','gift-icon',"🎁")).setAttribute('aria-hidden','true');
+ p.appendChild(el('h1',null,"Aún no es tiempo"));
+ p.appendChild(el('p',null,"Este regalo se abrirá el 29 de octubre a las 00:00. Vuelve cuando llegue el día."));
+ var c=el('p','msg');p.appendChild(c);var id;
+ function tick(){
+  var ms=START-new Date();
+  if(ms<=0){clearInterval(id);cEl.classList.remove('hide');intro();return}
+  var s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);
+  c.textContent="Faltan "+d+(d===1?" día, ":" días, ")+pad(h)+":"+pad(m)+":"+pad(s%60);
+ }
+ id=setInterval(tick,1000);tick();
+}
+var preview=location.hash==='#preview';
+if(!preview&&new Date()<START)lock();else intro();
+</script>
+</body>
+</html>
