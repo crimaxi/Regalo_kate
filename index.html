@@ -28,57 +28,85 @@
 var START = new Date(2026,9,29);   // 29 de octubre 2026 (primer mes)
 var MET = new Date(2026,6,20);     // 20 de julio 2026 (se conocieron en persona)
 var QS = [
- {q:"¿Qué día nos conocimos en persona por primera vez?",o:[
-  {t:"20 de julio",ok:1,c:"Exacto. Ese día hablamos tanto que el tiempo se nos fue volando."},
-  {t:"29 de octubre",c:"Ese día me llamaste por teléfono, casi, pero no."},
-  {t:"Nunca, soy un holograma",c:"Ojalá no. Los hologramas no comen cazuela."}]},
- {q:"¿Cómo empezó todo lo nuestro?",o:[
+ {q:"¿Qué día nos vimos por primera vez en persona?",o:[
+  {t:"20 de julio",ok:1,c:"Ese día hablamos tanto que el tiempo se nos fue volando."},
+  {t:"29 de octubre",c:"Ese día fue la llamada. Casi, pero no."},
+  {t:"Un día que ya se me olvidó",c:"Te vi la cara: sí te acuerdas."}]},
+ {q:"¿Qué fue lo primero que hiciste cuando nos vimos en persona?",o:[
+  {t:"Me abrazaste y me diste un beso en la mejilla",ok:1,c:"Un abrazo y un beso en la mejilla. Así empezó todo en persona."},
+  {t:"Me diste la mano",c:"Muy formal, y no fue así."},
+  {t:"Me hiciste un choque de puños",c:"Habría sido gracioso, pero no."}]},
+ {q:"¿A qué película fuimos en lo que fue, técnicamente, nuestra primera cita?",o:[
+  {t:"La Odisea",ok:1,c:"La Odisea. Nuestra primera cita, técnicamente."},
+  {t:"Boulevard",c:"Esa es tu obsesión, no nuestra primera cita."},
+  {t:"Titanic",c:"Esa nos la debemos."}]},
+ {q:"¿Cómo empezó lo nuestro?",o:[
   {t:"Una amistad a distancia que fue creciendo",ok:1,c:"Así fue. Sin darme cuenta, me tenías más cerca de lo que pensaba."},
-  {t:"Un matrimonio arreglado por nuestras familias",c:"Muy intenso para un primer mes. Bajemos el ritmo."},
-  {t:"Una apuesta que perdí",c:"La mejor apuesta perdida de mi vida, pero no fue esa."}]},
- {q:"¿Qué hacíamos a distancia?",o:[
-  {t:"Ver series, animes y películas",ok:1,c:"Sí. Y todavía nos quedan muchas por ver."},
-  {t:"Entrenar para una maratón",c:"Yo corriendo, tú hablando. Ya sé quién ganaría."},
-  {t:"Cultivar papas por videollamada",c:"Habría salido una papa gigante, pero no."}]},
+  {t:"Amor a primera vista",c:"Fue mejor: lento y de verdad."},
+  {t:"Un malentendido que salió bien",c:"Habría sido un buen guion, pero no."}]},
+ {q:"¿Qué hacíamos cuando estábamos lejos?",o:[
+  {t:"Ver series, animes y películas",ok:1,c:"Sí. Y todavía nos quedan muchas por ver, por algo tenemos un Excel con la lista."},
+  {t:"Jugar videojuegos toda la noche",c:"Tú no eres gamer, no me engañas."},
+  {t:"Mandarnos cartas",c:"Muy romántico, pero ganó la pantalla."}]},
  {q:"¿Qué pasó el 29 de octubre?",o:[
-  {t:"Me llamaste por teléfono y todo cambió",ok:1,c:"Esa llamada. Todavía me acuerdo."},
-  {t:"Me llegó una carta por paloma mensajera",c:"La paloma se perdió, por suerte llamaste tú."},
-  {t:"Se cayó internet en todo Chile",c:"Menos mal que el teléfono sí funcionó."}]},
+  {t:"Me llamaste por teléfono",ok:1,c:"Esa llamada. Todavía me acuerdo."},
+  {t:"Nos vimos en persona",c:"Eso fue antes, el 20 de julio."},
+  {t:"Me mandaste un mensaje",c:"Un mensaje habría sido más fácil, pero llamaste, y eso lo hace especial."}]},
+ {q:"¿Cuál es nuestra canción?",o:[
+  {t:"Boulevard of Broken Dreams",ok:1,c:"Y todo porque te obsesionaste con la película Boulevard. Nunca la voy a escuchar igual."},
+  {t:"Wake Me Up When September Ends",c:"También de Green Day, pero no es la nuestra."},
+  {t:"Basket Case",c:"Qué buena, pero no es la nuestra."}]},
+ {q:"¿Qué podrías tejerme algún día?",o:[
+  {t:"Una bufanda para el frío",ok:1,c:"Anotado. Te la voy a cobrar."},
+  {t:"Un gorro con orejas",ok:1,c:"Con orejas. Ya me lo imagino."},
+  {t:"Lo que yo te pida",ok:1,c:"Cuidado, que puedo pedir mucho."}]},
+ {q:"¿Qué fruta soy para ti?",o:[
+  {t:"Tomatito",ok:1,c:"Tomatito. Y sí, es una fruta. No hay discusión."},
+  {t:"Frutillita",c:"También es una fruta, pero no me dices así."},
+  {t:"Platanito",c:"Fruta también, pero el tuyo es otro."}]},
  {q:"¿Quién habla más cuando conversamos?",o:[
   {t:"Kate",ok:1,c:"Kate abre el tema, y entre una cosa y otra pasan dos horas. Me encanta."},
   {t:"Katie",ok:1,c:"Katie tiene tres cosas más que contar, y todas son entretenidas."},
-  {t:"Rose",ok:1,c:"Rose dice “una cosa más” y son las 2 de la mañana. Todas respuestas correctas."},
-  {t:"Christopher, obvio",ok:1,c:"Buen intento. Pero me gusta escucharte, así que lo dejamos pasar."}]},
- {q:"¿Cuál es tu comida favorita?",o:[
-  {t:"La cazuela",ok:1,c:"La cazuela nunca falla. Algún día te la cocino yo, y no prometo que quede igual."},
-  {t:"Sushi con piña",c:"Que esto quede entre nosotros."},
-  {t:"Puro aire, vivo de amor",c:"Qué lindo, pero eso no llena. Mejor la cazuela."}]},
- {q:"¿Qué te gusta hacer con las manos?",o:[
-  {t:"Tejer",ok:1,c:"Tejer. Algún día me haces algo, ¿no?"},
-  {t:"Esculpir en hielo",c:"Con este calor se derretiría todo."},
-  {t:"Domar leones",c:"Tú sola con tu intensidad ya domas a cualquiera."}]},
- {q:"¿Cómo me dices a veces?",o:[
-  {t:"Tomatito",ok:1,c:"Tomatito. Me lo dices y se me olvida todo lo demás."},
-  {t:"Zanahoria",c:"Eso es otra verdura, y otro nivel de confianza."},
-  {t:"Señor Christopher",c:"Muy formal. Prefiero lo otro."}]},
- {q:"¿Por qué nuestra canción es Boulevard of Broken Dreams?",o:[
-  {t:"Porque te obsesionaste con la película española Boulevard",ok:1,c:"Exacto. Nunca la voy a escuchar sin acordarme de eso."},
-  {t:"Porque me la dedicó un mariachi",c:"Habría sido memorable, pero no."},
-  {t:"Porque era la única que nos sabíamos en el karaoke",c:"Cantamos pésimo, pero esa no fue la razón."}]},
- {q:"¿Quién bebe más de los dos?",o:[
-  {t:"Christopher, sin discusión",ok:1,c:"La competencia que nunca declaramos, y que siempre gano yo."},
-  {t:"Kate, por goleada",c:"Qué generosa eres. Pero no."},
-  {t:"Empatados",c:"Eso lo dices para que no se enoje nadie."}]},
- {q:"Aparte de tejer, ¿qué más te gusta?",o:[
-  {t:"Maquillarme",ok:1,c:"Y siempre te queda lindo."},
-  {t:"Pescar a las 5 de la mañana",c:"Tú a las 5 de la mañana, jamás."},
-  {t:"Reparar autos",c:"No tengo auto, así que nada que reparar."}]},
- {q:"¿Quién siempre me apoya, se preocupa por mí y me da mi espacio?",o:[
-  {t:"Tú",ok:1,c:"Tú. Y nunca te lo agradezco lo suficiente."},
-  {t:"El gato del vecino",c:"Es amable, pero no tanto."},
-  {t:"Mi profesor guía",c:"Ojalá, pero no tanto."}]}
+  {t:"Rose",ok:1,c:"Rose dice “una cosa más” y son las 2 de la mañana."},
+  {t:"Christopher",ok:1,c:"Buen intento. Pero me gusta escucharte, así que lo dejamos pasar."}]},
+ {q:"¿Quién gana la competencia de beber que nunca declaramos?",o:[
+  {t:"tu",ok:1,c:"La competencia que nunca declaramos, y que siempre gano yo, en especial si hay destilados."},
+  {t:"yo",c:"Qué generosa eres. Pero no."},
+  {t:"Empate",c:"Eso lo dices para que no se enoje nadie."}]},
+ {q:"¿Qué color nos representa a cada uno en nuestras pulseras?",o:[
+  {t:"El rojo para ti y el morado para mí",ok:1,c:"Rojo por las rosas que tanto te gustan, y morado porque me representa a mí."},
+  {t:"El morado para ti y el rojo para mí",c:"Al revés. Piénsalo con las rosas."},
+  {t:"Verde para ti y amarillo para mí",c:"Muy original, pero no. Las hice yo y me acuerdo."}]},
+ {q:"¿Qué color de labial me gusta más en ti?",o:[
+  {t:"Rojo",ok:1,c:"Rojo. Te queda perfecto."},
+  {t:"Rosado",c:"Lindo, pero gana el rojo."},
+  {t:"Negro",c:"Igual me gustaría verte con estilo gótico algún día. Pero gana el rojo."}]},
+ {q:"¿Qué anime nos toca ver después?",o:[
+  {t:"Madoka Magica",ok:1,c:"Madoka Magica. Hace rato quiero mostrártela."},
+  {t:"Re:Zero",ok:1,c:"Re:Zero, mi isekai favorito. Gracias por darle una oportunidad."},
+  {t:"Inuyasha",ok:1,c:"Inuyasha, tu favorito. Es el trato: primero lo mío y después lo tuyo."}]},
+ {q:"¿Volverías a bailar conmigo?",o:[
+  {t:"Sí, aunque sea otro intento de vals",ok:1,c:"Me alegra. En la carta te cuento algo."},
+  {t:"Sí, pero ahora con los pasos aprendidos",ok:1,c:"Trato hecho. Antes, abre la carta."},
+  {t:"Sí, y esta vez yo llevo",ok:1,c:"Eso lo negociamos después. Primero, la carta."}]}
 ];
-var LETTER = "Kate:\n\nTodo esto empezó mucho antes del 29 de octubre. Empezó con series, animes y películas a distancia, con conversaciones que se alargaban más de la cuenta y con una amistad que fue creciendo sin que yo me diera cuenta de cuánto.\n\nEl 20 de julio nos vimos por primera vez en persona y hablamos tanto que el tiempo se pasó volando. Y el 29 de octubre me llamaste por teléfono y todo cambió.\n\nAunque a veces no digas las cosas con palabras, lo siento en cómo me apoyas, te preocupas por mí y me das mi espacio. Gracias por eso, por hablar tanto, por hacerme reír y por ser tan tú. Un mes ya, y me quedan muchas ganas de más: más series, más cazuela y más conversaciones que no terminan.\n\nFeliz primer mes, Rose.\n\nChristopher";
+var QUESTION_IMAGES = [
+ {src:"pregunta-gato-pulgar.jpg",alt:"Un gato blanco levantando la pata en señal de aprobación."},
+ {src:"tenor-cat-2.gif",alt:"Un gatito naranja con ojos grandes."},
+ {src:"tenor-cat-3.webp",alt:"Un gato bailando."},
+ {src:"tenor-cat-4.webp",alt:"Dos gatos riéndose juntos."},
+ {src:"tenor-cat-5.webp",alt:"Un gatito haciendo una expresión graciosa."},
+ {src:"tenor-cat-6.webp",alt:"Un gatito con un ramo de flores."},
+ {src:"tenor-cat-7.gif",alt:"Un gatito iluminado de color rosa."},
+ {src:"tenor-cat-8.webp",alt:"Un gatito acompañado de rosas."},
+ {src:"tenor-cat-1.gif",alt:"Un gatito naranja mirando a la cámara."},
+ {src:"pregunta-gato-lentes.jpg",alt:"Un gatito con lentes de sol."},
+ {src:"pregunta-11-gato.gif",alt:"Un gato blanco jugando en el suelo."},
+ {src:"pregunta-gato-cejas.jpg",alt:"Un gato blanco con las cejas dibujadas."},
+ {src:"pregunta-labial-gato.png",alt:"Un gato blanco con marcas de besos de labial."},
+ {src:"pregunta-gato-confundido.jpg",alt:"Un gato gris con expresión confundida."}
+];
+var LETTER = "Poema para Kate, mi amor (no soy bueno escribiendo estas cosas pero lo intente xd):\n\nMucho antes del veintinueve de octubre\nnuestra historia ya se estaba escribiendo,\na la distancia, entre animes y series,\ncon charlas largas que no tenían tiempo.\nFue una amistad que plantó su semilla\ny que creció sin que lo fuera advirtiendo.\n\nEl veinte de julio rompimos la pantalla,\nhablamos tanto que el reloj se apagó.\nNuestra primera cita, viendo La Odisea,\nabrió el camino para lo que llegó:\nesa llamada tuya, al final de octubre,\ndonde el mundo giró y todo al fin cambió.\n\nTodavía sonrío al recordar la noche\nen que inventamos nuestro propio vals.\nY si algún día me preguntas si repito el baile,\nte diré que sí, mil veces, con o sin compás.\n\nA veces no me dices las cosas con palabras,\npero te siento en tu manera de cuidar,\nen cómo me sostienes y en cómo das espacio,\ngracias por ser tan tú y hacerme carcajear.\n\nHoy es un mes, y la verdad te digo,\nque el corazón me pide mucho más:\nde más capítulos, más platos de cazuela,\ny de esas charlas nuestras, que no terminan jamás.\n\nFeliz primer mes, Rose.\n\nChristopher";
 // ===== fin de la zona editable =====
 
 var p = document.getElementById('panel'), i = 0, score = 0;
@@ -104,14 +132,24 @@ function menuGif(){
 function intro(){
  p.replaceChildren();
  p.appendChild(menuGif());
- p.appendChild(el('h1',null,"¿Qué tanto me conoces, Kate?"));
- p.appendChild(el('p',null,"Unas preguntas sobre nosotros. Mueve la rosa suavemente con las flechas, también en diagonal, y pulsa Enter; en móvil, arrástrala hasta una respuesta."));
+ p.appendChild(el('h1',null,"¿Qué tal unas preguntas, Kate?"));
+ p.appendChild(el('p',null,"la mayoria seran sobre nosotros, asi que espero que hayas estudiado. Mueve la rosa suavemente con las flechas, también en diagonal, y pulsa Enter; en móvil, arrástrala hasta una respuesta."));
  var b=el('button','main',"Empezar");b.onclick=ask;p.appendChild(b);
 }
 function ask(){
  var Q=QS[i];p.replaceChildren();
  p.appendChild(el('p','prog',"Pregunta "+(i+1)+" de "+QS.length));
  p.appendChild(el('h2',null,Q.q));
+ var questionImage=el('img','question-image');
+ if(i===QS.length-1){
+  questionImage.src='pregunta-15-gatitos.gif';
+  questionImage.alt='Dos gatitos juntos.';
+ }else{
+  questionImage.src=QUESTION_IMAGES[i].src;
+  questionImage.alt=QUESTION_IMAGES[i].alt;
+ }
+ questionImage.loading='lazy';
+ p.appendChild(questionImage);
  var box=el('div','box');p.appendChild(box);
  box.appendChild(el('div','tray',"Mueve la rosa suavemente con las flechas (combínalas para ir en diagonal) y pulsa Enter, o arrástrala sobre una respuesta"));
  var m=el('div','marker',"🌹");m.tabIndex=0;m.setAttribute('role','button');m.setAttribute('aria-label','Rosa: muévela con las flechas o arrástrala hasta una respuesta');document.body.appendChild(m);
@@ -198,13 +236,27 @@ function ask(){
 function envelope(){
  p.replaceChildren();
  p.appendChild(el('h2',null,"Terminaste: "+score+" de "+QS.length));
- p.appendChild(el('p',null,"Y la verdad es que da lo mismo, porque hay una carta esperándote."));
+ p.appendChild(el('p',null,"Y la verdad es que da lo mismo, porque hay una sorpresa esperándote."));
+ var surpriseImage=el('img','surprise-image');
+ surpriseImage.src='post-cuestionario-gato.gif';
+ surpriseImage.alt='Un gatito sorprendido.';
+ p.appendChild(surpriseImage);
  var b=el('button','main',"Abrir la carta");b.onclick=letter;p.appendChild(b);
 }
 function letter(){
  p.replaceChildren();
  p.appendChild(el('h2',null,"Feliz primer mes"));
- p.appendChild(el('div','letter',LETTER));
+ var poemLayout=el('div','poem-layout');
+ poemLayout.appendChild(el('div','letter',LETTER));
+ var poemGif=el('img','poem-gif');
+ poemGif.src='poema-gatito-lateral.gif';
+ poemGif.alt='Un gatito blanco bailando.';
+ poemLayout.appendChild(poemGif);
+ p.appendChild(poemLayout);
+ var poemImage=el('img','poem-image');
+ poemImage.src='poema-gatito.jpg';
+ poemImage.alt='Un gatito sostiene una rosa roja.';
+ p.appendChild(poemImage);
  for(var k=0;k<14;k++){(function(k){setTimeout(function(){
   var h=el('div','heart',k%2?"💗":"🌸");h.style.left=(Math.random()*92)+"vw";
   document.body.appendChild(h);setTimeout(function(){h.remove()},5200)},k*220)})(k)}

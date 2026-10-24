@@ -258,11 +258,58 @@ button:disabled {
   font-weight: 700;
 }
 
+.poem-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px;
+  align-items: start;
+  gap: 18px;
+}
+
 .letter {
   color: var(--ink);
   font-size: 1.05rem;
   line-height: 1.8;
   white-space: pre-line;
+}
+
+.poem-gif {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 4px;
+  border: 3px solid var(--card);
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(91, 38, 72, 0.16);
+}
+
+.poem-image {
+  display: block;
+  width: min(100%, 300px);
+  height: auto;
+  margin: 0 auto 24px;
+  border: 4px solid var(--card);
+  border-radius: 22px;
+  box-shadow: 0 12px 28px rgba(91, 38, 72, 0.16);
+}
+
+.surprise-image {
+  display: block;
+  width: min(100%, 240px);
+  height: auto;
+  margin: 4px auto 18px;
+  border: 4px solid var(--card);
+  border-radius: 22px;
+  box-shadow: 0 12px 28px rgba(91, 38, 72, 0.16);
+}
+
+.question-image {
+  display: block;
+  width: min(100%, 220px);
+  height: auto;
+  margin: 8px auto 18px;
+  border: 4px solid var(--card);
+  border-radius: 22px;
+  box-shadow: 0 12px 28px rgba(91, 38, 72, 0.16);
 }
 
 .box {
@@ -343,6 +390,18 @@ button:disabled {
 
   .panel {
     border-radius: 23px;
+  }
+}
+
+@media (max-width: 600px) {
+  .poem-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .poem-gif {
+    width: min(42%, 150px);
+    justify-self: end;
   }
 }
 
